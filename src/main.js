@@ -1,17 +1,18 @@
 import { createApp } from 'vue'
+import { createRouter, createWebHistory } from "vue-router"
 import App from './App.vue'
+import PokemonList from "./components/PokemonList"
+import PokemonDetail from "./components/PokemonDetail"
 
-import  PrimeVue  from "primevue/config" 
-import InputText from 'primevue/inputtext'
-import Button from 'primevue/button'
+const pokeRouter = createRouter({
+    history: createWebHistory(),
+    routes: [
+        { path: "/", component: PokemonList },
+        { path: "/pokemon/:id", name: "pokemon", component: PokemonDetail }
+    ]
+})
 
-import 'primevue/resources/themes/saga-blue/theme.css'
-import 'primevue/resources/primevue.min.css'
+const pokeApp = createApp(App)
 
-const money = createApp(App)
- 
-money.use(PrimeVue)
-money.component("InputText", InputText)
-money.component("Button", Button)
-
-money.mount('#app')
+pokeApp.use(pokeRouter)
+pokeApp.mount('#app')
